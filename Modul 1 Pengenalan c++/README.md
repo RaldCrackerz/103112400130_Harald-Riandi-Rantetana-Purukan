@@ -13,6 +13,35 @@ Struct
 
 ![Screenshot bagian x](output/modul1_guided-struct.png)
 
+### soal 2
+
+Aritmatika
+
+![Screenshot bagian x](output/modul1_guided-aritmatika.png)
+
+### soal 3
+
+Kondisi
+
+![Screenshot bagian x](output/modul1_guided-kondisi.png)
+
+### soal 4
+
+Perulangan
+
+![Screenshot bagian x](output/modul1_guided-perulangan.png)
+
+### soal 5 
+
+Fungsi
+
+![Screenshot bagian x](output/modul1_guided-fungsi.png)
+
+### soal 6 
+
+Test
+
+![Screenshot bagian x](output/modul1_guided-test.png)
 
 ## Unguided
 
