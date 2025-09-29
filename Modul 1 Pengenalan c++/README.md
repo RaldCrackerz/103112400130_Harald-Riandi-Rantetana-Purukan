@@ -132,7 +132,7 @@ int main() {
 ```
 
 > Output
-> ![foto](output/screenshot_soal2A.png)
+> ![foto](output/cu.jpg)
 
 1. Menyimpan array dalam bentuk satuan, belasan, dan puluhan 
 2. String pada array satuan dikosongkan pada index nol, karena kita masukkan ke dalam kondisi khusus. Alasan nol tidak digabung kedalam array satuan, karena array satuan akan kita gunakan bersama dengan array puluhan, tidak mungkin ada puluhan seperti contoh 20 (dua puluh nol)
