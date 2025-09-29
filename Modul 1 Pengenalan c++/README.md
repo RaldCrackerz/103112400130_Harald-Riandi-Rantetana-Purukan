@@ -31,7 +31,7 @@ Perulangan
 
 ![Screenshot bagian x](output/modul1_guided-perulangan.png)
 
-### soal 5 
+### soal 5
 
 Fungsi
 
@@ -47,16 +47,31 @@ Test
 
 ### Soal 1
 
-copy paste soal nomor 1 disini
+```c++
+#include <iostream>
+using namespace std;
 
-```go
-package main
+int main() {
+    float a, b;
 
-func main() {
-	fmt.Println("Kode kalian disini")
-	fmt.Println("JANGAN MASUKIN >>SCREENSHOT<< KODE KALIAN DISINI")
-	fmt.Println("KALAU ADA -20 POIN LAPRAK")
+    cout << "Masukkan bilangan pertama: ";
+    cin >> a;
+    cout << "Masukkan bilangan kedua: ";
+    cin >> b;
+
+    cout << "Hasil Penjumlahan: " << a + b << endl;
+    cout << "Hasil Pengurangan: " << a - b << endl;
+    cout << "Hasil Perkalian  : " << a * b << endl;
+
+    if (b != 0) {
+        cout << "Hasil Pembagian  : " << a / b << endl;
+    } else {
+        cout << "Pembagian tidak bisa dilakukan (pembagi = 0)" << endl;
+    }
+
+    return 0;
 }
+
 ```
 
 > Output
