@@ -32,6 +32,9 @@ Struct
 
 ![Screenshot bagian x](output/modul1_guided-struct.png)
 
+Penjelasan kode:
+
+
 ### soal 2
 
 Aritmatika
