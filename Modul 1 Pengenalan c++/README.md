@@ -32,7 +32,7 @@ Struct
 
 ![Screenshot bagian x](output/modul1_guided-struct.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 Program menyimpan struct data mahasiswa berupa nama, nim, dan ipk
 
 
@@ -42,7 +42,7 @@ Aritmatika
 
 ![Screenshot bagian x](output/modul1_guided-aritmatika.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 Program melakukan operasi aritmatika dengan mencari nilai Z menggunakan variabel X, Y, dan W yang sudah ada nilainya di dalam memori
 
 ### soal 3
@@ -51,7 +51,7 @@ Kondisi
 
 ![Screenshot bagian x](output/modul1_guided-kondisi.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 input 1-5 yaitu senin-jumat akan menghasilkan output hari kerja, sedangkan input 6 dan 7 atau hari sabtu dan minggu akan menghasilkan output hari libur
 
 ### soal 4
@@ -60,7 +60,7 @@ Perulangan
 
 ![Screenshot bagian x](output/modul1_guided-perulangan.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 Input dimulai dari bahlil ke-2, dan akan terus berulang hingga input yang dimasukkan terpenuhi. Input akan membatasi perulangan dengan n-1. Jadi jika input 5, maka perulangan hanya terjadi hingga bahlil ke-4 karena code while (i < jum); return 0;
 
 ### soal 5
@@ -69,7 +69,7 @@ Fungsi
 
 ![Screenshot bagian x](output/modul1_guided-fungsi.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 Memanggil fungsi yang menghitung luas dan keliling dari inputan yang diberikan oleh user. Namun juga terdapat prosedur yang menghitung luas dan keliling didalam prosedur tanpa memanggil fungsi.
 
 ### soal 6 
@@ -78,7 +78,7 @@ Test
 
 ![Screenshot bagian x](output/modul1_guided-test.png)
 
-Penjelasan kode:
+Penjelasan kode: <br>
 Meminta user memasukkan char. Jika yang diinput adalah string, maka output akan menghasilkan karakter pertama dalam string yang diinput.
 
 ## Unguided
