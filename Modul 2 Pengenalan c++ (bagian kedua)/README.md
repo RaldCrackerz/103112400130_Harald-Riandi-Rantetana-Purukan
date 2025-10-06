@@ -253,14 +253,14 @@ Buatlah sebuah program untuk melakukan transpose pada sebuah matriks persegi ber
 
 Contoh Output:
 
-Matriks Awal:
-1 2 3
-4 5 6
+Matriks Awal:<br>
+1 2 3<br>
+4 5 6<br>
 7 8 9
 
-Matriks Hasil Transpose:
-1 4 7
-2 5 8
+Matriks Hasil Transpose:<br>
+1 4 7<br>
+2 5 8<br>
 3 6 9
 
 ```cpp
