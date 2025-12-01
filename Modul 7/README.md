@@ -415,7 +415,7 @@ int main()
 ```
 
 > Output
-> ![foto](output/guided2.png)
+> ![foto](output/unguided2.png)
 
 Prosedur pushAscending menambahkan data baru ke Stack sambil memastikan urutan Stack tetap teratur.
 
