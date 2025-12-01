@@ -93,6 +93,9 @@ int main(){
 }
 ```
 
+> Output
+> ![foto](output/guided.png)
+
 Kode C++ yang diberikan ini berfungsi untuk mengimplementasikan struktur data Stack (Tumpukan), sebuah struktur data linear yang sangat penting dalam ilmu komputer. Implementasi yang digunakan adalah berbasis Singly Linked List, bukan array statis. Pilihan ini memberikan keuntungan pada sifat dinamisnya, memungkinkan ukuran Stack bertambah atau berkurang secara fleksibel selama program berjalan.
 
 Setiap elemen dalam Stack direpresentasikan oleh struct Node. Struktur ini adalah jantung dari Linked List, di mana setiap Node menyimpan dua informasi utama: data (bertipe integer) dan Node* next (sebuah pointer yang menghubungkan node saat ini dengan node di bawahnya, atau NULL jika sudah mencapai dasar Stack). Operasi pada Stack ini selalu berfokus pada satu titik akses, yaitu pointer top, yang selalu menunjuk ke elemen yang paling baru ditambahkan.
@@ -118,8 +121,6 @@ Operasi kode ini berjalan berdasarkan prinsip LIFO (Last-In, First-Out), yang di
 
 4. show(Node *top): Fungsi ini menampilkan semua isi Stack secara berurutan, mulai dari top hingga node terakhir sebelum NULL.
 
-> Output
-> ![foto](output/guided.png)
 
 ## Unguided
 
