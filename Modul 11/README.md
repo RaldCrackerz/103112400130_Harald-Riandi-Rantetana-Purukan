@@ -7,12 +7,13 @@
 
 ## Guided
 
+### soal 1
 
 ```cpp
 kode
 ```
 > Output
-> ![foto](output/screenshot_soal1.png)
+> ![foto](output/guided.png)
 
 penjelasan
 
@@ -27,7 +28,7 @@ kode
 ```
 
 > Output
-> ![foto](output/screenshot_soal1.png)
+> ![foto](output/unguided1.png)
 
 Penjelasan kode
 
