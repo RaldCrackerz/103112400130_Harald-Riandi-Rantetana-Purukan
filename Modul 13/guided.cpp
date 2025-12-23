@@ -107,9 +107,9 @@ int main()
     printAll(list);
     cout << "\n";
 
-    insertChild(list, "Parent node 1", "Child Node A");
-    insertChild(list, "Parent node 1", "Child Node B");
-    insertChild(list, "Parent node 2", "Child Node C");
+    insertChild(list, "Parent Node 1", "Child Node A");
+    insertChild(list, "Parent Node 1", "Child Node B");
+    insertChild(list, "Parent Node 2", "Child Node C");
 
     printAll(list);
 

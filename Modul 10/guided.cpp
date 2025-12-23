@@ -81,6 +81,7 @@ Node *preOrder(Node *root) {
         preOrder(root->kiri);
         preOrder(root->kanan);
     }
+    return root;
 }
 Node *inOrder(Node *root) {
     if (root != NULL) {
@@ -88,6 +89,7 @@ Node *inOrder(Node *root) {
         cout << root->data << " ";
         inOrder(root->kanan);
     }
+    return root;
 }
 Node *postOrder(Node *root) {
     if (root != NULL) {
@@ -95,6 +97,7 @@ Node *postOrder(Node *root) {
         postOrder(root->kanan);
         cout << root->data << " ";
     }
+    return root;
 }
 main() {
     Node *root = NULL;
