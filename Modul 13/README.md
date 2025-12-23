@@ -690,6 +690,8 @@ int main() {
 
 > Output
 > ![foto](output/unguided1.png)
+> ![foto](output/unguided1(1).png)
+> ![foto](output/unguided1(2).png)
 
 Program ini mengimplementasikan struktur data multi linked list (linked list hierarkis dua tingkat) yang terdiri dari list induk (parent) dan list anak (child), di mana setiap node parent dapat memiliki linked list child tersendiri untuk merepresentasikan hubungan hierarkis seperti fakultas dan program studi. Implementasi mencakup tiga file utama: multilist.h yang berisi deklarasi struktur data (elemeninduk, elemenanak, listinduk, listanak) dan prototype fungsi-fungsi, multilist.cpp yang berisi implementasi lengkap semua fungsi operasi linked list seperti create, insert (First/After/Last), delete (First/Last/After/delP), search (findElm), dan utility functions (printInfo, nbList, delAll) untuk kedua level list, serta main.cpp yang mendemonstrasikan penggunaan seluruh fungsi dengan contoh kasus pembuatan struktur fakultas-prodi di universitas termasuk penambahan, pencarian, penghapusan, dan penampilan data hierarkis. Program menggunakan alokasi memori dinamis dengan pointer dan menyediakan mekanisme dealokasi untuk mencegah memory leak, serta menerapkan prinsip modular programming dengan pemisahan header, implementasi, dan driver program yang memudahkan maintenance dan reusability kode.
 
@@ -697,25 +699,337 @@ Program ini mengimplementasikan struktur data multi linked list (linked list hie
 
 soal
 
-multilist.h
+circularlist.h
 ```h
-kode
+#ifndef CIRCULARLIST_H
+#define CIRCULARLIST_H
+
+#include <iostream>
+#include <string>
+
+#define Nil NULL
+#define info(P) (P)->info
+#define next(P) (P)->next
+#define first(L) ((L).First)
+
+using namespace std;
+
+typedef struct {
+    string nama;
+    string nim;
+    char jenis_kelamin;
+    float ipk;
+} infotype;
+
+typedef struct ElmList *address;
+
+struct ElmList {
+    infotype info;
+    address next;
+};
+
+struct List {
+    address First;
+};
+
+// --- PROTOTYPE ---
+
+void createList(List &L);
+address alokasi(infotype x);
+void dealokasi(address &P);
+
+void insertFirst(List &L, address P);
+void insertAfter(List &L, address Prec, address P);
+void insertLast(List &L, address P);
+
+void deleteFirst(List &L, address &P);
+void deleteAfter(List &L, address Prec, address &P);
+void deleteLast(List &L, address &P);
+
+address findElm(List L, infotype x);
+void printInfo(List L);
+
+#endif
 ```
 
-multilist.cpp
+circularlist.cpp
 ```cpp
-kode
+#include "circularlist.h"
+
+void createList(List &L) {
+    first(L) = Nil;
+}
+
+address alokasi(infotype x) {
+    address P = new ElmList;
+    info(P) = x;
+    next(P) = Nil;
+    return P;
+}
+
+void dealokasi(address &P) {
+    delete P;
+    P = Nil;
+}
+
+void insertFirst(List &L, address P) {
+    if (first(L) == Nil) {
+        first(L) = P;
+        next(P) = P; // Circular: menunjuk diri sendiri
+    } else {
+        address last = first(L);
+        // Mencari elemen terakhir (yang menunjuk ke First)
+        while (next(last) != first(L)) {
+            last = next(last);
+        }
+        next(P) = first(L);
+        next(last) = P;
+        first(L) = P;
+    }
+}
+
+void insertAfter(List &L, address Prec, address P) {
+    if (Prec != Nil) {
+        next(P) = next(Prec);
+        next(Prec) = P;
+    }
+}
+
+void insertLast(List &L, address P) {
+    if (first(L) == Nil) {
+        insertFirst(L, P);
+    } else {
+        address last = first(L);
+        while (next(last) != first(L)) {
+            last = next(last);
+        }
+        next(last) = P;
+        next(P) = first(L);
+    }
+}
+
+void deleteFirst(List &L, address &P) {
+    P = first(L);
+    if (first(L) != Nil) {
+        if (next(first(L)) == first(L)) { // Satu elemen
+            first(L) = Nil;
+        } else {
+            address last = first(L);
+            while (next(last) != first(L)) {
+                last = next(last);
+            }
+            first(L) = next(first(L));
+            next(last) = first(L);
+        }
+        next(P) = Nil;
+    }
+}
+
+void deleteAfter(List &L, address Prec, address &P) {
+    if (Prec != Nil && next(Prec) != first(L)) { // Tidak menghapus First via deleteAfter biasa
+        P = next(Prec);
+        next(Prec) = next(P);
+        next(P) = Nil;
+    } else if (Prec != Nil && next(Prec) == first(L)) {
+        // Jika elemen yang akan dihapus adalah elemen yang kebetulan First (kasus khusus di circular)
+        deleteFirst(L, P);
+    }
+}
+
+void deleteLast(List &L, address &P) {
+    if (first(L) != Nil) {
+        address last = first(L);
+        address precLast = Nil;
+        
+        // Loop sampai elemen terakhir
+        while (next(last) != first(L)) {
+            precLast = last;
+            last = next(last);
+        }
+        
+        P = last;
+        if (precLast == Nil) { // Hanya 1 elemen
+            first(L) = Nil;
+        } else {
+            next(precLast) = first(L);
+        }
+        next(P) = Nil;
+    }
+}
+
+address findElm(List L, infotype x) {
+    if (first(L) == Nil) return Nil;
+    
+    address P = first(L);
+    do {
+        if (info(P).nim == x.nim) {
+            return P;
+        }
+        P = next(P);
+    } while (P != first(L));
+    
+    return Nil;
+}
+
+void printInfo(List L) {
+    if (first(L) == Nil) {
+        cout << "List Kosong" << endl;
+    } else {
+        address P = first(L);
+        do {
+            cout << "Nama : " << info(P).nama << endl;
+            cout << "NIM  : " << info(P).nim << endl;
+            cout << "L/P  : " << info(P).jenis_kelamin << endl;
+            cout << "IPK  : " << info(P).ipk << endl;
+            cout << endl;
+            P = next(P);
+        } while (P != first(L));
+    }
+}
 ```
 
 main.cpp
 ```cpp
-kode
+#include "multilist.h"
+
+int main() {
+    listinduk L;
+    address P;
+    address_anak Panak;
+    
+    cout << "========================================" << endl;
+    cout << "   PROGRAM MULTI LINKED LIST" << endl;
+    cout << "========================================" << endl;
+    
+    // 1. Membuat list kosong
+    cout << "\n1. Membuat list kosong..." << endl;
+    CreateList(L);
+    cout << "   Status list: " << (ListEmpty(L) ? "KOSONG" : "TIDAK KOSONG") << endl;
+    
+    // 2. Insert parent nodes
+    cout << "\n2. Menambahkan parent nodes..." << endl;
+    P = alokasi("Fakultas Teknik");
+    insertFirst(L, P);
+    cout << "   - Ditambahkan: Fakultas Teknik" << endl;
+    
+    P = alokasi("Fakultas Ekonomi");
+    insertLast(L, P);
+    cout << "   - Ditambahkan: Fakultas Ekonomi" << endl;
+    
+    P = alokasi("Fakultas Kedokteran");
+    insertLast(L, P);
+    cout << "   - Ditambahkan: Fakultas Kedokteran" << endl;
+    
+    cout << "\n   Jumlah parent: " << nbList(L) << endl;
+    cout << "   Isi list:" << endl;
+    printInfo(L);
+    
+    // 3. Insert child nodes untuk Fakultas Teknik
+    cout << "\n3. Menambahkan child nodes untuk Fakultas Teknik..." << endl;
+    address parentTeknik = findElm(L, "Fakultas Teknik");
+    if (parentTeknik != Nil) {
+        Panak = alokasiAnak("Teknik Informatika");
+        insertFirstAnak(child(parentTeknik), Panak);
+        cout << "   - Ditambahkan: Teknik Informatika" << endl;
+        
+        Panak = alokasiAnak("Teknik Elektro");
+        insertLastAnak(child(parentTeknik), Panak);
+        cout << "   - Ditambahkan: Teknik Elektro" << endl;
+        
+        Panak = alokasiAnak("Teknik Sipil");
+        insertLastAnak(child(parentTeknik), Panak);
+        cout << "   - Ditambahkan: Teknik Sipil" << endl;
+    }
+    
+    // 4. Insert child nodes untuk Fakultas Ekonomi
+    cout << "\n4. Menambahkan child nodes untuk Fakultas Ekonomi..." << endl;
+    address parentEkonomi = findElm(L, "Fakultas Ekonomi");
+    if (parentEkonomi != Nil) {
+        Panak = alokasiAnak("Manajemen");
+        insertFirstAnak(child(parentEkonomi), Panak);
+        cout << "   - Ditambahkan: Manajemen" << endl;
+        
+        Panak = alokasiAnak("Akuntansi");
+        insertLastAnak(child(parentEkonomi), Panak);
+        cout << "   - Ditambahkan: Akuntansi" << endl;
+    }
+    
+    // 5. Insert child nodes untuk Fakultas Kedokteran
+    cout << "\n5. Menambahkan child nodes untuk Fakultas Kedokteran..." << endl;
+    address parentKedokteran = findElm(L, "Fakultas Kedokteran");
+    if (parentKedokteran != Nil) {
+        Panak = alokasiAnak("Pendidikan Dokter");
+        insertFirstAnak(child(parentKedokteran), Panak);
+        cout << "   - Ditambahkan: Pendidikan Dokter" << endl;
+        
+        Panak = alokasiAnak("Keperawatan");
+        insertLastAnak(child(parentKedokteran), Panak);
+        cout << "   - Ditambahkan: Keperawatan" << endl;
+    }
+    
+    // 6. Tampilkan semua data
+    cout << "\n6. Menampilkan seluruh struktur list:" << endl;
+    cout << "========================================" << endl;
+    printInfo(L);
+    
+    // 7. Pencarian elemen
+    cout << "\n7. Mencari elemen..." << endl;
+    address searchParent = findElm(L, "Fakultas Ekonomi");
+    if (searchParent != Nil) {
+        cout << "   - Parent 'Fakultas Ekonomi' DITEMUKAN" << endl;
+        cout << "     Jumlah child: " << nbListAnak(child(searchParent)) << endl;
+    }
+    
+    address_anak searchChild = findElmAnak(child(parentTeknik), "Teknik Informatika");
+    if (searchChild != Nil) {
+        cout << "   - Child 'Teknik Informatika' DITEMUKAN di Fakultas Teknik" << endl;
+    }
+    
+    // 8. Hapus child tertentu
+    cout << "\n8. Menghapus child 'Teknik Elektro' dari Fakultas Teknik..." << endl;
+    delPAnak(child(parentTeknik), "Teknik Elektro");
+    cout << "   Struktur setelah penghapusan:" << endl;
+    printInfo(L);
+    
+    // 9. Hapus parent tertentu
+    cout << "\n9. Menghapus parent 'Fakultas Kedokteran'..." << endl;
+    // Hapus semua child dulu
+    while (!ListEmptyAnak(child(parentKedokteran))) {
+        delFirstAnak(child(parentKedokteran), Panak);
+        dealokasiAnak(Panak);
+    }
+    delP(L, "Fakultas Kedokteran");
+    cout << "   Struktur setelah penghapusan:" << endl;
+    printInfo(L);
+    
+    // 10. Statistik akhir
+    cout << "\n10. Statistik akhir:" << endl;
+    cout << "    Total parent: " << nbList(L) << endl;
+    address Ptemp = first(L);
+    while (Ptemp != Nil) {
+        cout << "    - " << info(Ptemp) << ": " 
+             << nbListAnak(child(Ptemp)) << " child" << endl;
+        Ptemp = next(Ptemp);
+    }
+    
+    // 11. Hapus semua elemen
+    cout << "\n11. Menghapus semua elemen..." << endl;
+    delAll(L);
+    cout << "    Status list: " << (ListEmpty(L) ? "KOSONG" : "TIDAK KOSONG") << endl;
+    
+    cout << "\n========================================" << endl;
+    cout << "   PROGRAM SELESAI" << endl;
+    cout << "========================================" << endl;
+    
+    return 0;
+}
 ```
 
 > Output
-> ![foto](output/unguided1.png)
+> ![foto](output/unguided2.png)
+> ![foto](output/unguided2(1).png)
 
-Penjelasan kode
+Program ini mengimplementasikan struktur data Circular Single Linked List untuk mengelola data mahasiswa, di mana elemen terakhir selalu menunjuk kembali ke elemen pertama sehingga membentuk lingkaran. File circularlist.h mendefinisikan struktur infotype (nama, NIM, jenis kelamin, IPK) dan prototipe fungsi, sementara circularlist.cpp berisi logika manipulasi pointer seperti alokasi memori, penambahan elemen di posisi tertentu (first, last, after), serta penghapusan elemen. Di dalam main.cpp, program mensimulasikan pembentukan daftar mahasiswa dengan mencari elemen tertentu menggunakan NIM sebagai acuan melalui fungsi findElm agar data tersusun urut sesuai permintaan, kemudian menampilkannya ke layar secara berurutan hingga kembali ke titik awal.
 
 
 ## Referensi
